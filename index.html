@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('masdan.jpg') no-repeat center center/cover;
+            overflow: hidden;
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            color: rgb(10, 1, 1);
+            flex-direction: column;
+        }
+        .container {
+            position: relative;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 10;
+            padding: 20px;
+            max-width: 90%;
+        }
+        .typing-text {
+            display: inline-block;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 8s steps(40, end) infinite, blink 0.7s infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        .fireworks {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            animation: rise 6s linear infinite;
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: black;
+            left: 50%;
+            bottom: -40px;
+        }
+        @keyframes rise {
+            0% { bottom: -100px; opacity: 1; }
+            80% { opacity: 1; }
+            100% { bottom: 100vh; opacity: 0; }
+        }
+        .cake {
+            position: relative;
+            margin-top: 50px;
+            width: 120px;
+            max-width: 40%;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .explosion-text {
+            position: absolute;
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: gold;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            animation: fadeOut 2s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="happy-birthday.mp3" type="audio/mpeg">
+    </audio>
+    <canvas class="fireworks"></canvas>
+    <div class="container">
+        <h1>Selamat Ulang Tahun Masdan!</h1>
+        <p class="typing-text">Semoga panjang umur, sehat selalu, dan sukses dalam segala hal!</p>
+    </div>
+    <img src="image.png" class="cake" alt="Kue Ulang Tahun Tanpa Background">
+    <script>
+        function createBalloon() {
+            const balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(balloon);
+            setTimeout(() => {
+                balloon.remove();
+                showExplosion(balloon.style.left);
+            }, 6000);
+        }
+        function showExplosion(x) {
+            const explosion = document.createElement("div");
+            explosion.classList.add("explosion-text");
+            explosion.style.left = x;
+            explosion.style.top = "30vh";
+            explosion.innerText = "Happy Birthday Masdan!";
+            document.body.appendChild(explosion);
+            setTimeout(() => {
+                explosion.remove();
+            }, 2000);
+        }
+        setInterval(createBalloon, 1000);
+    </script>
+</body>
+</html>
